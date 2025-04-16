@@ -1,986 +1,742 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickChinese - Эффективное обучение китайскому языку</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Основные стили */
-        :root {
-            --primary-color: #e74c3c;
-            --secondary-color: #2c3e50;
-            --accent-color: #f39c12;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --success-color: #27ae60;
-            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --font-cn: 'Microsoft YaHei', sans-serif;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: var(--font-main);
-            line-height: 1.6;
-            color: var(--dark-color);
-            background-color: #f9f9f9;
-        }
-        
-        a {
-            text-decoration: none;
-            color: var(--primary-color);
-            transition: all 0.3s ease;
-        }
-        
-        a:hover {
-            color: var(--accent-color);
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 4px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background-color: var(--accent-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        /* Шапка сайта */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo img {
-            height: 40px;
-            margin-right: 10px;
-        }
-        
-        .logo h1 {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-        
-        .logo span {
-            color: var(--secondary-color);
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 30px;
-        }
-        
-        nav ul li a {
-            color: var(--secondary-color);
-            font-weight: 600;
-            position: relative;
-        }
-        
-        nav ul li a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-color);
-            bottom: -5px;
-            left: 0;
-            transition: width 0.3s ease;
-        }
-        
-        nav ul li a:hover:after {
-            width: 100%;
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--secondary-color);
-            cursor: pointer;
-        }
-        
-        /* Герой-секция */
-        .hero {
-            background: linear-gradient(135deg, rgba(231, 76, 60, 0.9), rgba(46, 134, 222, 0.8)), url('images/chinese-bg.jpg') no-repeat center center/cover;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            color: white;
-            text-align: center;
-            margin-top: 70px;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .hero h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-        
-        .hero-btns {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .hero-btns .btn {
-            padding: 15px 30px;
-            font-size: 1.1rem;
-        }
-        
-        /* Секция возможностей */
-        .features {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title h2:after {
-            content: '';
-            position: absolute;
-            width: 50%;
-            height: 3px;
-            background-color: var(--primary-color);
-            bottom: -10px;
-            left: 25%;
-        }
-        
-        .section-title p {
-            color: #777;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .feature-card {
-            background-color: var(--light-color);
-            border-radius: 8px;
-            padding: 30px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--secondary-color);
-        }
-        
-        /* Секция курсов */
-        .courses {
-            padding: 80px 0;
-            background-color: #f5f5f5;
-        }
-        
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .course-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .course-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .course-img {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .course-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .course-card:hover .course-img img {
-            transform: scale(1.1);
-        }
-        
-        .course-content {
-            padding: 20px;
-        }
-        
-        .course-level {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: var(--light-color);
-            color: var(--secondary-color);
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .course-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--secondary-color);
-        }
-        
-        .course-content p {
-            color: #777;
-            margin-bottom: 15px;
-        }
-        
-        .course-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-        
-        .course-price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-        
-        /* Секция преподавателей */
-        .teachers {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .teachers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .teacher-card {
-            background-color: var(--light-color);
-            border-radius: 8px;
-            overflow: hidden;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .teacher-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .teacher-img {
-            height: 250px;
-            overflow: hidden;
-        }
-        
-        .teacher-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .teacher-info {
-            padding: 20px;
-        }
-        
-        .teacher-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-            color: var(--secondary-color);
-        }
-        
-        .teacher-info p {
-            color: var(--primary-color);
-            font-style: italic;
-            margin-bottom: 15px;
-        }
-        
-        .teacher-social {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .teacher-social a {
-            color: var(--secondary-color);
-            font-size: 1.2rem;
-        }
-        
-        /* Секция отзывов */
-        .testimonials {
-            padding: 80px 0;
-            background-color: #f5f5f5;
-        }
-        
-        .testimonials-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .testimonial {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
-        }
-        
-        .testimonial-text {
-            font-size: 1.1rem;
-            font-style: italic;
-            color: #555;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        
-        .testimonial-text:before {
-            content: '"';
-            font-size: 4rem;
-            color: var(--light-color);
-            position: absolute;
-            top: -20px;
-            left: -15px;
-            z-index: 0;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        
-        .testimonial-author img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-        }
-        
-        .author-info h4 {
-            font-size: 1.1rem;
-            color: var(--secondary-color);
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: #777;
-            font-size: 0.9rem;
-        }
-        
-        /* Секция CTA */
-        .cta {
-            padding: 80px 0;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            text-align: center;
-        }
-        
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .cta p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        /* Подвал */
-        footer {
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 60px 0 20px;
-        }
-        
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-col h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-col h3:after {
-            content: '';
-            position: absolute;
-            width: 50px;
-            height: 2px;
-            background-color: var(--primary-color);
-            bottom: 0;
-            left: 0;
-        }
-        
-        .footer-col p {
-            margin-bottom: 15px;
-            opacity: 0.8;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: white;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--accent-color);
-        }
-        
-        .footer-social {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .footer-social a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-social a:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .footer-bottom p {
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-        
-        /* Адаптивность */
-        @media (max-width: 992px) {
-            .hero h2 {
-                font-size: 2.5rem;
-            }
-            
-            .hero-btns {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                flex-direction: column;
-                padding: 20px 0;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            }
-            
-            nav ul.show {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0;
-                text-align: center;
-                padding: 10px 0;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero h2 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero {
-                margin-top: 60px;
-            }
-            
-            .hero h2 {
-                font-size: 1.8rem;
-            }
-            
-            .feature-card, .course-card, .teacher-card {
-                padding: 20px;
-            }
-            
-            .courses-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickChinese - Эффективное обучение китайскому языку</title>
+    <style>
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #f1c40f;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #c0392b;
+            color: white;
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .courses {
+            background-color: var(--light-color);
+        }
+        
+        .course-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .course-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .course-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .course-content {
+            padding: 1.5rem;
+        }
+        
+        .course-content h3 {
+            margin-top: 0;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .teacher {
+            display: flex;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        
+        .teacher-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            margin-right: 1rem;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 0;
+                display: none;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        form {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        form input, form textarea {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        
+        /* Таймер акции */
+        .promo-timer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+        
+        .timer-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        .timer-unit {
+            display: inline-block;
+            min-width: 60px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Шапка сайта -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <img src="images/logo.png" alt="QuickChinese">
-                <h1>Quick<span>Chinese</span></h1>
-            </div>
-            <nav>
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <ul id="main-menu">
-                    <li><a href="#home">Главная</a></li>
-                    <li><a href="#courses">Курсы</a></li>
-                    <li><a href="#features">Методика</a></li>
-                    <li><a href="#teachers">Преподаватели</a></li>
-                    <li><a href="#testimonials">Отзывы</a></li>
-                    <li><a href="#contact">Контакты</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    Quick<span>Chinese</span>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                <nav>
+                    <ul id="navMenu">
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#features">Методика</a></li>
+                        <li><a href="#courses">Курсы</a></li>
+                        <li><a href="#about">О нас</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                        <li><a href="#" class="btn" id="loginBtn">Вход</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-    <!-- Герой-секция -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h2>Начните говорить по-китайски уже через месяц!</h2>
-            <p>Инновационная методика обучения, которая действительно работает. Первый урок - бесплатно!</p>
-            <div class="hero-btns">
-                <a href="#courses" class="btn">Выбрать курс</a>
-                <a href="#" class="btn btn-outline">Бесплатный урок</a>
-            </div>
-        </div>
-    </section>
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="animate">Начните говорить по-китайски уже через месяц!</h1>
+                <p class="animate delay-1">Авторская методика преподавания, которая действительно работает. 98% наших студентов достигают результатов уже после первого месяца занятий.</p>
+                <a href="#courses" class="btn btn-primary animate delay-2">Выбрать курс</a>
+            </div>
+        </div>
+    </section>
 
-    <!-- Секция возможностей -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Почему выбирают нас</h2>
-                <p>Более 10 000 студентов уже выучили китайский с QuickChinese</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <h3>Опытные преподаватели</h3>
-                    <p>Все наши учителя - носители языка с педагогическим образованием и опытом работы от 5 лет</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Удобная платформа</h3>
-                    <p>Занимайтесь где угодно: на компьютере, планшете или телефоне в любое время</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Сертификат HSK</h3>
-                    <p>Подготовка к международному экзамену HSK с гарантией результата</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section id="features" class="container">
+        <h2 class="section-title">Почему выбирают QuickChinese?</h2>
+        <div class="features">
+            <div class="feature-card animate">
+                <div class="feature-icon">📝</div>
+                <h3>Авторская методика</h3>
+                <p>Уникальная система обучения, разработанная на основе 10-летнего опыта преподавания китайского языка.</p>
+            </div>
+            <div class="feature-card animate delay-1">
+                <div class="feature-icon">🗣️</div>
+                <h3>Разговорная практика</h3>
+                <p>80% времени на занятии - это практика общения. Вы начнёте говорить с первого урока.</p>
+            </div>
+            <div class="feature-card animate delay-2">
+                <div class="feature-icon">🇨🇳</div>
+                <h3>Носители языка</h3>
+                <p>Занятия с русскоязычными преподавателями и носителями китайского языка для полного погружения.</p>
+            </div>
+        </div>
+    </section>
 
-    <!-- Секция курсов -->
-    <section class="courses" id="courses">
-        <div class="container">
-            <div class="section-title">
-                <h2>Наши курсы</h2>
-                <p>Выберите программу, которая подходит именно вам</p>
-            </div>
-            <div class="courses-grid">
-                <div class="course-card">
-                    <div class="course-img">
-                        <img src="images/course-beginner.jpg" alt="Китайский для начинающих">
-                    </div>
-                    <div class="course-content">
-                        <span class="course-level">Начальный</span>
-                        <h3>Китайский для начинающих</h3>
-                        <p>Освойте основы китайского языка: иероглифы, произношение, простые фразы</p>
-                        <div class="course-meta">
-                            <div class="course-duration">
-                                <i class="far fa-clock"></i> 3 месяца
-                            </div>
-                            <div class="course-price">9 900 ₽</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img">
-                        <img src="images/course-hsk.jpg" alt="Подготовка к HSK">
-                    </div>
-                    <div class="course-content">
-                        <span class="course-level">Продвинутый</span>
-                        <h3>Подготовка к HSK 1-4</h3>
-                        <p>Полная подготовка к международному экзамену с гарантией результата</p>
-                        <div class="course-meta">
-                            <div class="course-duration">
-                                <i class="far fa-clock"></i> 6 месяцев
-                            </div>
-                            <div class="course-price">24 900 ₽</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img">
-                        <img src="images/course-business.jpg" alt="Деловой китайский">
-                    </div>
-                    <div class="course-content">
-                        <span class="course-level">Бизнес</span>
-                        <h3>Деловой китайский</h3>
-                        <p>Специализированный курс для ведения переговоров и бизнес-коммуникации</p>
-                        <div class="course-meta">
-                            <div class="course-duration">
-                                <i class="far fa-clock"></i> 4 месяца
-                            </div>
-                            <div class="course-price">19 900 ₽</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section class="courses" id="courses">
+        <div class="container">
+            <h2 class="section-title">Наши курсы</h2>
+            
+            <div class="promo-timer animate">
+                <p>До конца акции осталось:</p>
+                <div class="timer-numbers" id="timer">
+                    <span class="timer-unit" id="days">00</span>:
+                    <span class="timer-unit" id="hours">00</span>:
+                    <span class="timer-unit" id="minutes">00</span>:
+                    <span class="timer-unit" id="seconds">00</span>
+                </div>
+                <p>Скидка 30% на все курсы!</p>
+            </div>
+            
+            <div class="course-cards">
+                <div class="course-card animate">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="course-content">
+                        <h3>Китайский для начинающих</h3>
+                        <p>Освойте основы китайского языка за 2 месяца. Идеально для тех, кто только начинает.</p>
+                        <p class="price">12 900 ₽ <span class="old-price" style="text-decoration: line-through; color: #777; font-size: 1rem;">18 500 ₽</span></p>
+                        <button class="btn btn-primary enroll-btn">Записаться</button>
+                    </div>
+                </div>
+                <div class="course-card animate delay-1">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="course-content">
+                        <h3>Разговорный китайский</h3>
+                        <p>Научитесь свободно общаться на повседневные темы. Интенсивный курс за 3 месяца.</p>
+                        <p class="price">24 900 ₽ <span class="old-price" style="text-decoration: line-through; color: #777; font-size: 1rem;">35 500 ₽</span></p>
+                        <button class="btn btn-primary enroll-btn">Записаться</button>
+                    </div>
+                </div>
+                <div class="course-card animate delay-2">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="course-content">
+                        <h3>Бизнес-китайский</h3>
+                        <p>Специализированный курс для делового общения и ведения переговоров.</p>
+                        <p class="price">32 900 ₽ <span class="old-price" style="text-decoration: line-through; color: #777; font-size: 1rem;">47 000 ₽</span></p>
+                        <button class="btn btn-primary enroll-btn">Записаться</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Секция преподавателей -->
-    <section class="teachers" id="teachers">
-        <div class="container">
-            <div class="section-title">
-                <h2>Наши преподаватели</h2>
-                <p>Профессиональные педагоги с опытом работы в России и Китае</p>
-            </div>
-            <div class="teachers-grid">
-                <div class="teacher-card">
-                    <div class="teacher-img">
-                        <img src="images/teacher1.jpg" alt="Ли Мин">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>Ли Мин</h3>
-                        <p>Преподаватель HSK</p>
-                        <p>Опыт: 8 лет</p>
-                        <div class="teacher-social">
-                            <a href="#"><i class="fab fa-vk"></i></a>
-                            <a href="#"><i class="fab fa-telegram"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="teacher-card">
-                    <div class="teacher-img">
-                        <img src="images/teacher2.jpg" alt="Чжан Вэй">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>Чжан Вэй</h3>
-                        <p>Деловой китайский</p>
-                        <p>Опыт: 6 лет</p>
-                        <div class="teacher-social">
-                            <a href="#"><i class="fab fa-vk"></i></a>
-                            <a href="#"><i class="fab fa-telegram"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="teacher-card">
-                    <div class="teacher-img">
-                        <img src="images/teacher3.jpg" alt="Ван Фан">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>Ван Фан</h3>
-                        <p>Разговорный китайский</p>
-                        <p>Опыт: 5 лет</p>
-                        <div class="teacher-social">
-                            <a href="#"><i class="fab fa-vk"></i></a>
-                            <a href="#"><i class="fab fa-telegram"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="teacher-card">
-                    <div class="teacher-img">
-                        <img src="images/teacher4.jpg" alt="Ирина Петрова">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>Ирина Петрова</h3>
-                        <p>Китайский для начинающих</p>
-                        <p>Опыт: 7 лет</p>
-                        <div class="teacher-social">
-                            <a href="#"><i class="fab fa-vk"></i></a>
-                            <a href="#"><i class="fab fa-telegram"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">О преподавателе</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <div class="teacher" style="justify-content: center;">
+                    <div class="teacher-img" style="background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80');"></div>
+                    <div>
+                        <h3 style="margin: 0;">Александра Ван</h3>
+                        <p style="margin: 0; color: #777;">Основатель QuickChinese</p>
+                    </div>
+                </div>
+                <p style="margin-top: 2rem;">Я преподаю китайский язык уже более 10 лет. Жила и работала в Пекине 5 лет, окончила Пекинский университет языка и культуры. Моя методика сочетает традиционные подходы с современными техниками запоминания, что позволяет студентам достигать результатов в 3 раза быстрее, чем при стандартном обучении.</p>
+                <p>Наши выпускники успешно сдают экзамены HSK, поступают в китайские вузы, строят карьеру в международных компаниях и свободно путешествуют по Китаю.</p>
+            </div>
+        </div>
+    </section>
 
-    <!-- Секция отзывов -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Отзывы наших студентов</h2>
-                <p>Что говорят о нас те, кто уже выучил китайский</p>
-            </div>
-            <div class="testimonials-container">
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        Занимаюсь в QuickChinese уже полгода. Начала с нуля, сейчас могу свободно общаться на бытовые темы. Преподаватели очень внимательные, объясняют сложные вещи простым языком. Особенно нравится мобильное приложение - можно учиться в любое время.
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="images/student1.jpg" alt="Анна">
-                        <div class="author-info">
-                            <h4>Анна Смирнова</h4>
-                            <p>Студентка курса HSK 3</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        Прошел курс делового китайского перед командировкой в Шанхай. Благодаря занятиям смог вести переговоры с партнерами без переводчика. Очень практичные уроки с реальными бизнес-кейсами. Теперь рекомендую QuickChinese всем коллегам!
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="images/student2.jpg" alt="Дмитрий">
-                        <div class="author-info">
-                            <h4>Дмитрий Иванов</h4>
-                            <p>Директор по экспорту</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section id="contact" style="background-color: var(--light-color);">
+        <div class="container">
+            <h2 class="section-title">Остались вопросы?</h2>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <form id="contactForm">
+                    <input type="text" placeholder="Ваше имя" required>
+                    <input type="email" placeholder="Ваш email" required>
+                    <input type="tel" placeholder="Ваш телефон">
+                    <textarea placeholder="Ваш вопрос" rows="4"></textarea>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-    <!-- Секция CTA -->
-    <section class="cta">
-        <div class="container">
-            <h2>Готовы начать учить китайский?</h2>
-            <p>Запишитесь на бесплатный пробный урок и получите индивидуальный план обучения</p>
-            <a href="#" class="btn">Записаться сейчас</a>
-        </div>
-    </section>
+    <footer>
+        <div class="container">
+            <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+                Quick<span style="color: var(--secondary-color);">Chinese</span>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Главная</a>
+                <a href="#features">Методика</a>
+                <a href="#courses">Курсы</a>
+                <a href="#about">О нас</a>
+                <a href="#contact">Контакты</a>
+                <a href="#">Политика конфиденциальности</a>
+            </div>
+            <div class="social-links">
+                <a href="#">📱</a>
+                <a href="#">📘</a>
+                <a href="#">📸</a>
+                <a href="#">🎥</a>
+            </div>
+            <p>© 2023 QuickChinese. Все права защищены.</p>
+        </div>
+    </footer>
 
-    <!-- Подвал -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-col">
-                    <h3>QuickChinese</h3>
-                    <p>Эффективное обучение китайскому языку для любых целей: от туризма до бизнеса.</p>
-                    <div class="footer-social">
-                        <a href="#"><i class="fab fa-vk"></i></a>
-                        <a href="#"><i class="fab fa-telegram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h3>Курсы</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Для начинающих</a></li>
-                        <li><a href="#">Разговорный китайский</a></li>
-                        <li><a href="#">Деловой китайский</a></li>
-                        <li><a href="#">Подготовка к HSK</a></li>
-                        <li><a href="#">Интенсивные курсы</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Контакты</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Тверская, 18</p>
-                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
-                    <p><i class="fas fa-envelope"></i> info@quickchinese.ru</p>
-                </div>
-                <div class="footer-col">
-                    <h3>Рассылка</h3>
-                    <p>Подпишитесь на новости и получите бесплатный урок</p>
-                    <form class="subscribe-form">
-                        <input type="email" placeholder="Ваш email" required>
-                        <button type="submit" class="btn">Подписаться</button>
-                    </form>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 QuickChinese. Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Модальные окна -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeLoginModal">×</button>
+            <h2>Вход в личный кабинет</h2>
+            <form id="loginForm">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Пароль" required>
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">Нет аккаунта? <a href="#" id="showRegisterModal" style="color: var(--primary-color);">Зарегистрироваться</a></p>
+        </div>
+    </div>
 
-    <script>
-        // Мобильное меню
-        const menuBtn = document.querySelector('.mobile-menu-btn');
-        const menu = document.getElementById('main-menu');
-        
-        menuBtn.addEventListener('click', () => {
-            menu.classList.toggle('show');
-        });
-        
-        // Плавная прокрутка
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                if (this.getAttribute('href') === '#') return;
-                
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Закрываем меню на мобильных
-                    if (menu.classList.contains('show')) {
-                        menu.classList.remove('show');
-                    }
-                }
-            });
-        });
-        
-        // Фиксированная шапка при скролле
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
-            } else {
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-            }
-        });
-    </script>
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeRegisterModal">×</button>
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <input type="text" placeholder="Имя" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Пароль" required>
+                <input type="password" placeholder="Повторите пароль" required>
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="enrollModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeEnrollModal">×</button>
+            <h2 id="enrollTitle">Запись на курс</h2>
+            <form id="enrollForm">
+                <input type="text" placeholder="Ваше имя" required>
+                <input type="email" placeholder="Email" required>
+                <input type="tel" placeholder="Телефон" required>
+                <select required>
+                    <option value="" disabled selected>Выберите курс</option>
+                    <option value="beginner">Китайский для начинающих</option>
+                    <option value="conversational">Разговорный китайский</option>
+                    <option value="business">Бизнес-китайский</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Отправить заявку</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Мобильное меню
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Плавная прокрутка для якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Закрываем мобильное меню, если оно открыто
+                    navMenu.classList.remove('show');
+                }
+            });
+        });
+        
+        // Модальные окна
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        
+        const showRegisterModal = document.getElementById('showRegisterModal');
+        const registerModal = document.getElementById('registerModal');
+        const closeRegisterModal = document.getElementById('closeRegisterModal');
+        
+        const enrollBtns = document.querySelectorAll('.enroll-btn');
+        const enrollModal = document.getElementById('enrollModal');
+        const closeEnrollModal = document.getElementById('closeEnrollModal');
+        const enrollTitle = document.getElementById('enrollTitle');
+        
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+        });
+        
+        closeLoginModal.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+        
+        showRegisterModal.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'none';
+            registerModal.style.display = 'flex';
+        });
+        
+        closeRegisterModal.addEventListener('click', () => {
+            registerModal.style.display = 'none';
+        });
+        
+        enrollBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const courseTitle = btn.closest('.course-content').querySelector('h3').textContent;
+                enrollTitle.textContent = `Запись на курс "${courseTitle}"`;
+                enrollModal.style.display = 'flex';
+            });
+        });
+        
+        closeEnrollModal.addEventListener('click', () => {
+            enrollModal.style.display = 'none';
+        });
+        
+        // Закрытие модальных окон при клике вне их области
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === registerModal) {
+                registerModal.style.display = 'none';
+            }
+            if (e.target === enrollModal) {
+                enrollModal.style.display = 'none';
+            }
+        });
+        
+        // Таймер акции
+        function updateTimer() {
+            const now = new Date();
+            const endDate = new Date();
+            endDate.setDate(now.getDate() + 3); // Акция длится 3 дня
+            
+            const diff = endDate - now;
+            
+            if (diff <= 0) {
+                document.getElementById('timer').innerHTML = 'Акция завершена!';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        setInterval(updateTimer, 1000);
+        updateTimer();
+        
+        // Анимации при прокрутке
+        function checkScroll() {
+            const elements = document.querySelectorAll('.animate');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+        
+        // Обработка форм
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо за ваш вопрос! Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+        
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Вход выполнен! Перенаправляем в личный кабинет.');
+            loginModal.style.display = 'none';
+            this.reset();
+        });
+        
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Регистрация успешно завершена! На ваш email отправлено письмо с подтверждением.');
+            registerModal.style.display = 'none';
+            this.reset();
+        });
+        
+        document.getElementById('enrollForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Заявка отправлена! Наш менеджер свяжется с вами для уточнения деталей.');
+            enrollModal.style.display = 'none';
+            this.reset();
+        });
+    </script>
 </body>
-        </html>
+</html>
