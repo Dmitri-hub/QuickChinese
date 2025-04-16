@@ -3,38 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickChinese - Эффективное обучение китайскому языку</title>
+    <title>Авторский курс китайского языка от Дмитрия М.</title>
     <style>
         :root {
-            --primary-color: #e74c3c;
-            --secondary-color: #f1c40f;
-            --dark-color: #2c3e50;
-            --light-color: #ecf0f1;
+            --primary: #e74c3c;
+            --primary-dark: #c0392b;
+            --secondary: #f1c40f;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--dark-color);
             line-height: 1.6;
-        }
-        
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            color: var(--dark);
+            background-color: #f9f9f9;
         }
         
         .container {
-            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .header-content {
@@ -44,14 +51,12 @@
         }
         
         .logo {
-            font-size: 1.8rem;
+            font-size: 24px;
             font-weight: bold;
-            display: flex;
-            align-items: center;
         }
         
         .logo span {
-            color: var(--secondary-color);
+            color: var(--secondary);
         }
         
         nav ul {
@@ -60,49 +65,26 @@
         }
         
         nav ul li {
-            margin-left: 2rem;
+            margin-left: 30px;
         }
         
         nav ul li a {
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: all 0.3s;
         }
         
         nav ul li a:hover {
-            color: var(--secondary-color);
-        }
-        
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            color: white;
-            text-align: center;
-            margin-top: 60px;
-        }
-        
-        .hero-content h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .hero-content p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
+            color: var(--secondary);
         }
         
         .btn {
             display: inline-block;
-            background-color: var(--secondary-color);
-            color: var(--dark-color);
-            padding: 0.8rem 1.8rem;
-            border-radius: 30px;
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 12px 25px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
             transition: all 0.3s;
@@ -111,200 +93,261 @@
         }
         
         .btn:hover {
-            background-color: white;
+            background: white;
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        .btn-primary {
-            background-color: var(--primary-color);
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
             color: white;
         }
         
-        .btn-primary:hover {
-            background-color: #c0392b;
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .hero {
+            background: url('https://images.unsplash.com/photo-1508804185872-d7badad00f7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
             color: white;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
         }
         
         section {
-            padding: 5rem 0;
+            padding: 100px 0;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.2rem;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--gray);
+        }
+        
+        .about {
+            background: white;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
         }
         
         .features {
+            background: var(--light);
+        }
+        
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 30px;
         }
         
         .feature-card {
-            background-color: white;
+            background: white;
+            padding: 30px;
             border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             text-align: center;
+            transition: all 0.3s;
         }
         
         .feature-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
         
         .feature-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
         }
         
-        .courses {
-            background-color: var(--light-color);
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
         }
         
-        .course-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .course-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .course-img {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
+        .course {
+            background: white;
         }
         
         .course-content {
-            padding: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
         }
         
         .course-content h3 {
-            margin-top: 0;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .course-content p {
+            margin-bottom: 30px;
         }
         
         .price {
+            font-size: 48px;
             font-weight: bold;
-            color: var(--primary-color);
-            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 30px;
         }
         
-        .teacher {
-            display: flex;
-            align-items: center;
-            margin-top: 2rem;
+        .price span {
+            font-size: 24px;
+            color: var(--gray);
+            text-decoration: line-through;
         }
         
-        .teacher-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-size: cover;
-            background-position: center;
-            margin-right: 1rem;
+        .form-section {
+            background: var(--light);
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
         }
         
         footer {
-            background-color: var(--dark-color);
+            background: var(--dark);
             color: white;
-            padding: 3rem 0;
+            padding: 50px 0;
             text-align: center;
         }
         
         .footer-links {
             display: flex;
             justify-content: center;
-            margin-bottom: 2rem;
+            margin-bottom: 30px;
         }
         
         .footer-links a {
             color: white;
-            margin: 0 1rem;
+            margin: 0 15px;
             text-decoration: none;
         }
         
         .footer-links a:hover {
-            color: var(--secondary-color);
+            color: var(--secondary);
         }
         
         .social-links {
-            margin-bottom: 2rem;
+            margin-bottom: 30px;
         }
         
         .social-links a {
             color: white;
-            margin: 0 0.5rem;
-            font-size: 1.5rem;
-            transition: color 0.3s;
+            margin: 0 10px;
+            font-size: 24px;
         }
         
         .social-links a:hover {
-            color: var(--secondary-color);
+            color: var(--secondary);
         }
         
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
+        .copyright {
+            color: var(--gray);
         }
-        
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                padding: 0;
-                display: none;
-            }
-            
-            nav ul.show {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0.5rem 0;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-                position: absolute;
-                top: 1rem;
-                right: 1rem;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-        }
-        
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate {
-            animation: fadeIn 1s ease-out forwards;
-        }
-        
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
         
         /* Модальное окно */
         .modal {
@@ -314,342 +357,76 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
             justify-content: center;
             align-items: center;
         }
         
         .modal-content {
-            background-color: white;
-            padding: 2rem;
+            background: white;
+            padding: 40px;
             border-radius: 10px;
             max-width: 500px;
             width: 90%;
             position: relative;
+            text-align: center;
         }
         
         .close-modal {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
             cursor: pointer;
             background: none;
             border: none;
         }
         
-        form {
-            display: grid;
-            gap: 1rem;
-        }
-        
-        form input, form textarea {
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: inherit;
-        }
-        
-        /* Таймер акции */
-        .promo-timer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            margin: 2rem 0;
-            border-radius: 5px;
-        }
-        
-        .timer-numbers {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            font-size: 2rem;
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-        
-        .timer-unit {
-            display: inline-block;
-            min-width: 60px;
-        }
-        /* Добавляем новые стили для личного кабинета */
-        .dashboard {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 2rem;
-            min-height: calc(100vh - 200px);
-            margin-top: 80px;
-        }
-        
-        .sidebar {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 2rem 1rem;
-            border-radius: 10px;
-        }
-        
-        .sidebar-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .sidebar-menu li {
-            margin-bottom: 1rem;
-        }
-        
-        .sidebar-menu a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 0.5rem;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-        
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .sidebar-menu i {
-            margin-right: 0.5rem;
-            width: 20px;
-            text-align: center;
-        }
-        
-        .main-content {
-            padding: 2rem;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .user-profile {
-            display: flex;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .user-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: var(--light-color);
-            margin-right: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: var(--primary-color);
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .user-info h2 {
-            margin: 0;
-        }
-        
-        .user-info p {
-            margin: 0.5rem 0 0;
-            color: #777;
-        }
-        
-        .stats-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .stat-card {
-            background-color: var(--light-color);
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .stat-card h3 {
-            margin: 0;
-            font-size: 2rem;
-            color: var(--primary-color);
-        }
-        
-        .stat-card p {
-            margin: 0.5rem 0 0;
-            color: var(--dark-color);
-        }
-        
-        .progress-container {
-            margin-bottom: 2rem;
-        }
-        
-        .progress-bar {
-            height: 10px;
-            background-color: #eee;
-            border-radius: 5px;
-            margin-bottom: 0.5rem;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background-color: var(--primary-color);
-            width: 0%;
-            transition: width 1s ease-out;
-        }
-        
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .lessons-list {
-            margin-bottom: 2rem;
-        }
-        
-        .lesson-card {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            border: 1px solid #eee;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-            transition: all 0.3s;
-        }
-        
-        .lesson-card:hover {
-            border-color: var(--primary-color);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .lesson-icon {
-            width: 40px;
-            height: 40px;
-            background-color: var(--light-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            color: var(--primary-color);
-        }
-        
-        .lesson-info {
-            flex: 1;
-        }
-        
-        .lesson-info h4 {
-            margin: 0;
-        }
-        
-        .lesson-info p {
-            margin: 0.3rem 0 0;
-            font-size: 0.9rem;
-            color: #777;
-        }
-        
-        .lesson-status {
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        
-        .status-completed {
-            background-color: #2ecc71;
-            color: white;
-        }
-        
-        .status-in-progress {
-            background-color: var(--secondary-color);
-            color: var(--dark-color);
-        }
-        
-        .status-not-started {
-            background-color: #eee;
-            color: #777;
-        }
-        
-        .homework-section {
-            margin-top: 2rem;
-        }
-        
-        .homework-card {
-            padding: 1.5rem;
-            border: 1px solid #eee;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-        }
-        
-        .homework-card h4 {
-            margin: 0 0 1rem;
-        }
-        
-        .homework-card p {
-            margin: 0.5rem 0;
-        }
-        
-        .homework-deadline {
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-        
-        .btn-sm {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-        }
-        
-        /* Адаптация для мобильных */
+        /* Адаптивность */
         @media (max-width: 768px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                padding: 1rem;
-            }
-            
-            .user-profile {
+            .header-content {
                 flex-direction: column;
                 text-align: center;
             }
             
-            .user-avatar {
-                margin-right: 0;
-                margin-bottom: 1rem;
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .section-title h2 {
+                font-size: 30px;
             }
         }
         
-        /* Стили для вкладок */
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 1.5rem;
-        }
-        
-        .tab {
-            padding: 0.8rem 1.5rem;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-        
-        .tab.active {
-            border-bottom-color: var(--primary-color);
-            font-weight: bold;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 5px 0;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
@@ -657,415 +434,114 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">
-                    Quick<span>Chinese</span>
-                </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                <div class="logo">Quick<span>Chinese</span></div>
                 <nav>
-                    <ul id="navMenu">
-                        <li><a href="index.html">Главная</a></li>
-                        <li><a href="index.html#features">Методика</a></li>
-                        <li><a href="index.html#courses">Курсы</a></li>
-                        <li><a href="index.html#about">О нас</a></li>
-                        <li><a href="index.html#contact">Контакты</a></li>
-                        <li><a href="#" class="btn" id="logoutBtn">Выйти</a></li>
+                    <ul>
+                        <li><a href="#about">О преподавателе</a></li>
+                        <li><a href="#features">Преимущества</a></li>
+                        <li><a href="#course">О курсе</a></li>
+                        <li><a href="#form">Записаться</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
 
-    <div class="container dashboard">
-        <div class="sidebar">
-            <ul class="sidebar-menu">
-                <li><a href="#dashboard" class="active"><i>📊</i> Обзор</a></li>
-                <li><a href="#my-courses"><i>🎓</i> Мои курсы</a></li>
-                <li><a href="#lessons"><i>📚</i> Уроки</a></li>
-                <li><a href="#homework"><i>✏️</i> Домашние задания</a></li>
-                <li><a href="#progress"><i>📈</i> Прогресс</a></li>
-                <li><a href="#materials"><i>📂</i> Материалы</a></li>
-                <li><a href="#settings"><i>⚙️</i> Настройки</a></li>
-            </ul>
-        </div>
-
-        <div class="main-content">
-            <div class="user-profile">
-                <div class="user-avatar" style="background-image: url('https://randomuser.me/api/portraits/women/44.jpg');">ИИ</div>
-                <div class="user-info">
-                    <h2>Ирина Иванова</h2>
-                    <p>Уровень: HSK 2</p>
-                    <p>Дата регистрации: 15.03.2023</p>
-                </div>
-            </div>
-
-            <div class="tabs">
-                <div class="tab active" data-tab="overview">Обзор</div>
-                <div class="tab" data-tab="courses">Мои курсы</div>
-                <div class="tab" data-tab="schedule">Расписание</div>
-            </div>
-
-            <div class="tab-content active" id="overview">
-                <div class="stats-cards">
-                    <div class="stat-card">
-                        <h3>12</h3>
-                        <p>Пройдено уроков</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>85%</h3>
-                        <p>Успеваемость</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>3</h3>
-                        <p>Активных курса</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>24</h3>
-                        <p>Дней подряд</p>
-                    </div>
-                </div>
-
-                <div class="progress-container">
-                    <h3>Прогресс по курсу "Разговорный китайский"</h3>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 65%;"></div>
-                    </div>
-                    <div class="progress-info">
-                        <span>65% завершено</span>
-                        <span>13 из 20 уроков</span>
-                    </div>
-                </div>
-
-                <div class="lessons-list">
-                    <h3>Ближайшие уроки</h3>
-                    <div class="lesson-card">
-                        <div class="lesson-icon">15</div>
-                        <div class="lesson-info">
-                            <h4>Тема: Деловой этикет в Китае</h4>
-                            <p>Сегодня, 18:00 - 19:30</p>
-                        </div>
-                        <div class="lesson-status status-in-progress">В процессе</div>
-                    </div>
-                    <div class="lesson-card">
-                        <div class="lesson-icon">16</div>
-                        <div class="lesson-info">
-                            <h4>Тема: Идиомы и пословицы</h4>
-                            <p>Завтра, 17:00 - 18:30</p>
-                        </div>
-                        <div class="lesson-status status-not-started">Не начат</div>
-                    </div>
-                </div>
-
-                <div class="homework-section">
-                    <h3>Последние домашние задания</h3>
-                    <div class="homework-card">
-                        <h4>Составить диалог в ресторане</h4>
-                        <p class="homework-deadline">Срок сдачи: 25.05.2023</p>
-                        <p>Оценка: <strong>5/5</strong></p>
-                        <button class="btn btn-primary btn-sm">Посмотреть проверку</button>
-                    </div>
-                    <div class="homework-card">
-                        <h4>Эссе "Мое путешествие в Китай"</h4>
-                        <p class="homework-deadline">Срок сдачи: 28.05.2023</p>
-                        <p>Статус: <strong>На проверке</strong></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-content" id="courses">
-                <h2>Мои курсы</h2>
-                <div class="course-cards">
-                    <div class="course-card">
-                        <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-                        <div class="course-content">
-                            <h3>Разговорный китайский</h3>
-                            <p>Прогресс: <strong>65%</strong></p>
-                            <div class="progress-bar" style="margin: 0.5rem 0;">
-                                <div class="progress-fill" style="width: 65%;"></div>
-                            </div>
-                            <p>Следующий урок: <strong>Деловой этикет в Китае</strong></p>
-                            <button class="btn btn-primary">Продолжить обучение</button>
-                        </div>
-                    </div>
-                    <div class="course-card">
-                        <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-                        <div class="course-content">
-                            <h3>Китайский для начинающих</h3>
-                            <p>Прогресс: <strong>100%</strong></p>
-                            <div class="progress-bar" style="margin: 0.5rem 0;">
-                                <div class="progress-fill" style="width: 100%;"></div>
-                            </div>
-                            <p>Курс завершен: <strong>12.04.2023</strong></p>
-                            <button class="btn btn-primary">Повторить материалы</button>
-                        </div>
-                    </div>
-                    <div class="course-card">
-                        <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-                        <div class="course-content">
-                            <h3>Бизнес-китайский</h3>
-                            <p>Прогресс: <strong>15%</strong></p>
-                            <div class="progress-bar" style="margin: 0.5rem 0;">
-                                <div class="progress-fill" style="width: 15%;"></div>
-                            </div>
-                            <p>Следующий урок: <strong>Проведение переговоров</strong></p>
-                            <button class="btn btn-primary">Начать урок</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-content" id="schedule">
-                <h2>Расписание занятий</h2>
-                <div style="background-color: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                    <div id="calendar" style="max-width: 800px; margin: 0 auto;">
-                        <!-- Здесь будет календарь с расписанием -->
-                        <div style="text-align: center; padding: 2rem; background-color: var(--light-color); border-radius: 10px;">
-                            <h3>Календарь занятий</h3>
-                            <p>Здесь будет отображаться ваше расписание занятий</p>
-                            <img src="https://via.placeholder.com/400x200?text=Calendar+Widget" alt="Календарь" style="max-width: 100%; height: auto; margin-top: 1rem; border-radius: 5px;">
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 2rem;">
-                    <h3>Ближайшие занятия</h3>
-                    <div class="lesson-card">
-                        <div class="lesson-icon">15</div>
-                        <div class="lesson-info">
-                            <h4>Тема: Деловой этикет в Китае</h4>
-                            <p>Сегодня, 18:00 - 19:30</p>
-                            <p>Курс: Разговорный китайский</p>
-                        </div>
-                        <button class="btn btn-primary btn-sm">Подключиться</button>
-                    </div>
-                    <div class="lesson-card">
-                        <div class="lesson-icon">16</div>
-                        <div class="lesson-info">
-                            <h4>Тема: Идиомы и пословицы</h4>
-                            <p>Завтра, 17:00 - 18:30</p>
-                            <p>Курс: Разговорный китайский</p>
-                        </div>
-                        <button class="btn btn-primary btn-sm">Подготовиться</button>
-                    </div>
-                    <div class="lesson-card">
-                        <div class="lesson-icon">5</div>
-                        <div class="lesson-info">
-                            <h4>Тема: Проведение переговоров</h4>
-                            <p>28.05.2023, 19:00 - 20:30</p>
-                            <p>Курс: Бизнес-китайский</p>
-                        </div>
-                        <button class="btn btn-primary btn-sm">Материалы</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <div class="container">
-            <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
-                Quick<span style="color: var(--secondary-color);">Chinese</span>
-            </div>
-            <div class="footer-links">
-                <a href="index.html">Главная</a>
-                <a href="index.html#features">Методика</a>
-                <a href="index.html#courses">Курсы</a>
-                <a href="index.html#about">О нас</a>
-                <a href="index.html#contact">Контакты</a>
-                <a href="#">Политика конфиденциальности</a>
-            </div>
-            <div class="social-links">
-                <a href="#">📱</a>
-                <a href="#">📘</a>
-                <a href="#">📸</a>
-                <a href="#">🎥</a>
-            </div>
-            <p>© 2023 QuickChinese. Все права защищены.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Мобильное меню
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('show');
-        });
-        
-        // Переключение вкладок в личном кабинете
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Удаляем активный класс у всех вкладок и контента
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                // Добавляем активный класс к выбранной вкладке
-                tab.classList.add('active');
-                
-                // Показываем соответствующий контент
-                const tabId = tab.getAttribute('data-tab');
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
-        
-        // Выход из личного кабинета
-        document.getElementById('logoutBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            if (confirm('Вы уверены, что хотите выйти?')) {
-                window.location.href = 'index.html';
-            }
-        });
-        
-        // Анимация прогресс-баров при загрузке страницы
-        document.addEventListener('DOMContentLoaded', () => {
-            const progressBars = document.querySelectorAll('.progress-fill');
-            progressBars.forEach(bar => {
-                const targetWidth = bar.style.width;
-                bar.style.width = '0';
-                setTimeout(() => {
-                    bar.style.width = targetWidth;
-                }, 100);
-            });
-        });
-        
-        // Здесь можно добавить код для загрузки реальных данных студента через AJAX
-        function loadStudentData() {
-            // В реальном приложении здесь был бы запрос к API
-            console.log('Загрузка данных студента...');
-        }
-        
-        loadStudentData();
-    </script>
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    Quick<span>Chinese</span>
-                </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
-                <nav>
-                    <ul id="navMenu">
-                        <li><a href="#home">Главная</a></li>
-                        <li><a href="#features">Методика</a></li>
-                        <li><a href="#courses">Курсы</a></li>
-                        <li><a href="#about">О нас</a></li>
-                        <li><a href="#contact">Контакты</a></li>
-                        <li><a href="#" class="btn" id="loginBtn">Вход</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="animate">Начните говорить по-китайски уже через месяц!</h1>
-                <p class="animate delay-1">Авторская методика преподавания, которая действительно работает. 98% наших студентов достигают результатов уже после первого месяца занятий.</p>
-                <a href="#courses" class="btn btn-primary animate delay-2">Выбрать курс</a>
-            </div>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Авторский курс китайского языка от Дмитрия М.</h1>
+            <p>Научитесь свободно говорить по-китайски за 3 месяца по уникальной методике</p>
+            <a href="#form" class="btn btn-outline">Записаться на курс</a>
         </div>
     </section>
 
-    <section id="features" class="container">
-        <h2 class="section-title">Почему выбирают QuickChinese?</h2>
-        <div class="features">
-            <div class="feature-card animate">
-                <div class="feature-icon">📝</div>
-                <h3>Авторская методика</h3>
-                <p>Уникальная система обучения, разработанная на основе 10-летнего опыта преподавания китайского языка.</p>
-            </div>
-            <div class="feature-card animate delay-1">
-                <div class="feature-icon">🗣️</div>
-                <h3>Разговорная практика</h3>
-                <p>80% времени на занятии - это практика общения. Вы начнёте говорить с первого урока.</p>
-            </div>
-            <div class="feature-card animate delay-2">
-                <div class="feature-icon">🇨🇳</div>
-                <h3>Носители языка</h3>
-                <p>Занятия с русскоязычными преподавателями и носителями китайского языка для полного погружения.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="courses" id="courses">
+    <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">Наши курсы</h2>
-            
-            <div class="promo-timer animate">
-                <p>До конца акции осталось:</p>
-                <div class="timer-numbers" id="timer">
-                    <span class="timer-unit" id="days">00</span>:
-                    <span class="timer-unit" id="hours">00</span>:
-                    <span class="timer-unit" id="minutes">00</span>:
-                    <span class="timer-unit" id="seconds">00</span>
-                </div>
-                <p>Скидка 30% на все курсы!</p>
+            <div class="section-title">
+                <h2>О преподавателе</h2>
+                <p>Дмитрий М. - профессиональный преподаватель китайского языка с 10-летним опытом</p>
             </div>
-            
-            <div class="course-cards">
-                <div class="course-card animate">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-                    <div class="course-content">
-                        <h3>Китайский для начинающих</h3>
-                        <p>Освойте основы китайского языка за 2 месяца. Идеально для тех, кто только начинает.</p>
-                        <p class="price">12 900 ₽ <span class="old-price" style="text-decoration: line-through; color: #777; font-size: 1rem;">18 500 ₽</span></p>
-                        <button class="btn btn-primary enroll-btn">Записаться</button>
-                    </div>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="Дмитрий М.">
                 </div>
-                <div class="course-card animate delay-1">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-                    <div class="course-content">
-                        <h3>Разговорный китайский</h3>
-                        <p>Научитесь свободно общаться на повседневные темы. Интенсивный курс за 3 месяца.</p>
-                        <p class="price">24 900 ₽ <span class="old-price" style="text-decoration: line-through; color: #777; font-size: 1rem;">35 500 ₽</span></p>
-                        <button class="btn btn-primary enroll-btn">Записаться</button>
-                    </div>
-                </div>
-                <div class="course-card animate delay-2">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-                    <div class="course-content">
-                        <h3>Бизнес-китайский</h3>
-                        <p>Специализированный курс для делового общения и ведения переговоров.</p>
-                        <p class="price">32 900 ₽ <span class="old-price" style="text-decoration: line-through; color: #777; font-size: 1rem;">47 000 ₽</span></p>
-                        <button class="btn btn-primary enroll-btn">Записаться</button>
-                    </div>
+                <div class="about-text">
+                    <h3>Привет, я Дмитрий!</h3>
+                    <p>Я преподаю китайский язык уже более 10 лет. Жил и работал в Китае 5 лет, где окончил Пекинский университет языка и культуры.</p>
+                    <p>Моя методика сочетает традиционные подходы с современными техниками запоминания, что позволяет студентам достигать результатов в 3 раза быстрее, чем при стандартном обучении.</p>
+                    <p>Мои ученики успешно сдают экзамены HSK, поступают в китайские вузы и строят карьеру в международных компаниях.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about">
+    <section id="features" class="features">
         <div class="container">
-            <h2 class="section-title">О преподавателе</h2>
-            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-                <div class="teacher" style="justify-content: center;">
-                    <div class="teacher-img" style="background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80');"></div>
-                    <div>
-                        <h3 style="margin: 0;">Александра Ван</h3>
-                        <p style="margin: 0; color: #777;">Основатель QuickChinese</p>
-                    </div>
+            <div class="section-title">
+                <h2>Почему выбирают мой курс?</h2>
+                <p>Уникальная методика, проверенная на сотнях студентов</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🗣️</div>
+                    <h3>Разговорная практика</h3>
+                    <p>80% времени на занятии - это практика общения. Вы начнёте говорить с первого урока.</p>
                 </div>
-                <p style="margin-top: 2rem;">Я преподаю китайский язык уже более 10 лет. Жила и работала в Пекине 5 лет, окончила Пекинский университет языка и культуры. Моя методика сочетает традиционные подходы с современными техниками запоминания, что позволяет студентам достигать результатов в 3 раза быстрее, чем при стандартном обучении.</p>
-                <p>Наши выпускники успешно сдают экзамены HSK, поступают в китайские вузы, строят карьеру в международных компаниях и свободно путешествуют по Китаю.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🇨🇳</div>
+                    <h3>Погружение в культуру</h3>
+                    <p>Вы узнаете не только язык, но и культурные особенности, что важно для настоящего общения.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Быстрый результат</h3>
+                    <p>98% студентов отмечают значительный прогресс уже после первого месяца занятий.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" style="background-color: var(--light-color);">
+    <section id="course" class="course">
         <div class="container">
-            <h2 class="section-title">Остались вопросы?</h2>
-            <div style="max-width: 600px; margin: 0 auto;">
-                <form id="contactForm">
-                    <input type="text" placeholder="Ваше имя" required>
-                    <input type="email" placeholder="Ваш email" required>
-                    <input type="tel" placeholder="Ваш телефон">
-                    <textarea placeholder="Ваш вопрос" rows="4"></textarea>
-                    <button type="submit" class="btn btn-primary">Отправить</button>
+            <div class="section-title">
+                <h2>О курсе</h2>
+                <p>Программа, которая действительно работает</p>
+            </div>
+            <div class="course-content">
+                <h3>"Китайский язык за 3 месяца"</h3>
+                <p>Этот курс предназначен для тех, кто хочет быстро освоить основы китайского языка и начать свободно общаться на повседневные темы.</p>
+                <p>12 недель интенсивных занятий, 3 урока в неделю, домашние задания и постоянная поддержка преподавателя.</p>
+                <div class="price">15 900 ₽ <span>24 900 ₽</span></div>
+                <a href="#form" class="btn">Записаться со скидкой</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="form" class="form-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Записаться на курс</h2>
+                <p>Оставьте свои данные, и я свяжусь с вами для уточнения деталей</p>
+            </div>
+            <div class="form-container">
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон (необязательно)</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Ваш опыт в китайском (если есть)</label>
+                        <textarea id="message" name="message"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Отправить заявку</button>
                 </form>
             </div>
         </div>
@@ -1073,16 +549,12 @@
 
     <footer>
         <div class="container">
-            <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
-                Quick<span style="color: var(--secondary-color);">Chinese</span>
-            </div>
+            <div class="logo" style="margin-bottom: 20px;">Quick<span>Chinese</span></div>
             <div class="footer-links">
-                <a href="#home">Главная</a>
-                <a href="#features">Методика</a>
-                <a href="#courses">Курсы</a>
-                <a href="#about">О нас</a>
-                <a href="#contact">Контакты</a>
-                <a href="#">Политика конфиденциальности</a>
+                <a href="#about">О преподавателе</a>
+                <a href="#features">Преимущества</a>
+                <a href="#course">О курсе</a>
+                <a href="#form">Записаться</a>
             </div>
             <div class="social-links">
                 <a href="#">📱</a>
@@ -1090,69 +562,24 @@
                 <a href="#">📸</a>
                 <a href="#">🎥</a>
             </div>
-            <p>© 2023 QuickChinese. Все права защищены.</p>
+            <p class="copyright">© 2023 QuickChinese. Все права защищены.</p>
         </div>
     </footer>
 
-    <!-- Модальные окна -->
-    <div class="modal" id="loginModal">
+    <div class="modal" id="successModal">
         <div class="modal-content">
-            <button class="close-modal" id="closeLoginModal">×</button>
-            <h2>Вход в личный кабинет</h2>
-            <form id="loginForm">
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Пароль" required>
-                <button type="submit" class="btn btn-primary">Войти</button>
-            </form>
-            <p style="text-align: center; margin-top: 1rem;">Нет аккаунта? <a href="#" id="showRegisterModal" style="color: var(--primary-color);">Зарегистрироваться</a></p>
-        </div>
-    </div>
-
-    <div class="modal" id="registerModal">
-        <div class="modal-content">
-            <button class="close-modal" id="closeRegisterModal">×</button>
-            <h2>Регистрация</h2>
-            <form id="registerForm">
-                <input type="text" placeholder="Имя" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Пароль" required>
-                <input type="password" placeholder="Повторите пароль" required>
-                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="enrollModal">
-        <div class="modal-content">
-            <button class="close-modal" id="closeEnrollModal">×</button>
-            <h2 id="enrollTitle">Запись на курс</h2>
-            <form id="enrollForm">
-                <input type="text" placeholder="Ваше имя" required>
-                <input type="email" placeholder="Email" required>
-                <input type="tel" placeholder="Телефон" required>
-                <select required>
-                    <option value="" disabled selected>Выберите курс</option>
-                    <option value="beginner">Китайский для начинающих</option>
-                    <option value="conversational">Разговорный китайский</option>
-                    <option value="business">Бизнес-китайский</option>
-                </select>
-                <button type="submit" class="btn btn-primary">Отправить заявку</button>
-            </form>
+            <button class="close-modal" id="closeModal">×</button>
+            <h2>Спасибо за заявку!</h2>
+            <p>Я получил ваши данные и свяжусь с вами в ближайшее время для уточнения деталей.</p>
+            <p>До скорой встречи на курсе!</p>
+            <p>— Дмитрий М.</p>
         </div>
     </div>
 
     <script>
-        // Мобильное меню
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('show');
-        });
-        
-        // Плавная прокрутка для якорных ссылок
+        // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 
                 const targetId = this.getAttribute('href');
@@ -1163,142 +590,68 @@
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
-                    
-                    // Закрываем мобильное меню, если оно открыто
-                    navMenu.classList.remove('show');
                 }
             });
         });
         
-        // Модальные окна
-        const loginBtn = document.getElementById('loginBtn');
-        const loginModal = document.getElementById('loginModal');
-        const closeLoginModal = document.getElementById('closeLoginModal');
+        // Обработка формы
+        const form = document.getElementById('registrationForm');
+        const modal = document.getElementById('successModal');
+        const closeModal = document.getElementById('closeModal');
         
-        const showRegisterModal = document.getElementById('showRegisterModal');
-        const registerModal = document.getElementById('registerModal');
-        const closeRegisterModal = document.getElementById('closeRegisterModal');
-        
-        const enrollBtns = document.querySelectorAll('.enroll-btn');
-        const enrollModal = document.getElementById('enrollModal');
-        const closeEnrollModal = document.getElementById('closeEnrollModal');
-        const enrollTitle = document.getElementById('enrollTitle');
-        
-        loginBtn.addEventListener('click', (e) => {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-            loginModal.style.display = 'flex';
-        });
-        
-        closeLoginModal.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
-        
-        showRegisterModal.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'none';
-            registerModal.style.display = 'flex';
-        });
-        
-        closeRegisterModal.addEventListener('click', () => {
-            registerModal.style.display = 'none';
-        });
-        
-        enrollBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const courseTitle = btn.closest('.course-content').querySelector('h3').textContent;
-                enrollTitle.textContent = `Запись на курс "${courseTitle}"`;
-                enrollModal.style.display = 'flex';
-            });
-        });
-        
-        closeEnrollModal.addEventListener('click', () => {
-            enrollModal.style.display = 'none';
-        });
-        
-        // Закрытие модальных окон при клике вне их области
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
-                loginModal.style.display = 'none';
-            }
-            if (e.target === registerModal) {
-                registerModal.style.display = 'none';
-            }
-            if (e.target === enrollModal) {
-                enrollModal.style.display = 'none';
-            }
-        });
-        
-        // Таймер акции
-        function updateTimer() {
-            const now = new Date();
-            const endDate = new Date();
-            endDate.setDate(now.getDate() + 3); // Акция длится 3 дня
             
-            const diff = endDate - now;
+            // Собираем данные формы
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
             
-            if (diff <= 0) {
-                document.getElementById('timer').innerHTML = 'Акция завершена!';
-                return;
-            }
+            // Здесь должна быть отправка данных на сервер
+            // Для демонстрации просто покажем модальное окно
             
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-        }
-        
-        setInterval(updateTimer, 1000);
-        updateTimer();
-        
-        // Анимации при прокрутке
-        function checkScroll() {
-            const elements = document.querySelectorAll('.animate');
-            
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.3;
-                
-                if (elementPosition < screenPosition) {
-                    element.style.opacity = '1';
+            // Отправка данных на email с помощью Formspree или другого сервиса
+            fetch('https://formspree.io/f/yuanshuai@mail.ru', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Показываем модальное окно об успехе
+                    modal.style.display = 'flex';
+                    form.reset();
+                } else {
+                    alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.');
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.');
             });
-        }
-        
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('load', checkScroll);
-        
-        // Обработка форм
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Спасибо за ваш вопрос! Мы свяжемся с вами в ближайшее время.');
-            this.reset();
         });
         
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Вход выполнен! Перенаправляем в личный кабинет.');
-            loginModal.style.display = 'none';
-            this.reset();
+        // Закрытие модального окна
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
         });
         
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Регистрация успешно завершена! На ваш email отправлено письмо с подтверждением.');
-            registerModal.style.display = 'none';
-            this.reset();
+        // Закрытие модального окна при клике вне его
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
         });
         
-        document.getElementById('enrollForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Заявка отправлена! Наш менеджер свяжется с вами для уточнения деталей.');
-            enrollModal.style.display = 'none';
-            this.reset();
+        // Фиксированное меню при прокрутке
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
         });
     </script>
 </body>
